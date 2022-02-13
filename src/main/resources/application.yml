@@ -5,13 +5,19 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_ADDRESS}/${MYSQL_DATABASE:springboot_demo}
-    username: ${MYSQL_USERNAME}
-    password: ${MySQL_PASSWORD}
+    url: jdbc:mysql://${MYSQL_ADDRESS:localhost:3306}/${MYSQL_DATABASE:yeah_grape}
+    username: ${MYSQL_USERNAME:root}
+    password: ${MySQL_PASSWORD:12345678}
   mvc:
     view:
       suffix: .html
       prefix: /
+  flyway:
+    locations: classpath:db/migration
 
-mybatis:
-  mapper-locations: classpath*:mapper/*Mapper.xml
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  typeAliasesPackage: com.tencent.wxcloudrun.model
+  type-enums-package: com.tencent.wxcloudrun.enums
+  default-enum-type-handler: com.baomidou.mybatisplus.extension.handlers.MybatisEnumTypeHandler
+  type-handlers-package: com.tencent.wxcloudrun.config.mybatis.typeHandler
