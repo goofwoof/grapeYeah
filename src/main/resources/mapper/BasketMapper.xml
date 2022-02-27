@@ -11,7 +11,7 @@
         <association
             property="good"
             column="good_id"
-            select="com.tencent.wxcloudrun.model.Good.selectById"
+            select="com.tencent.wxcloudrun.dao.GoodsMapper.selectById"
         />
     </resultMap>
 </mapper>
