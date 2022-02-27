@@ -59,9 +59,7 @@ public class BasketService {
             newBasket.setUserId(UserContext.getOpenId());
             basketMapper.insert(newBasket);
         } else {
-            if (basket.getQuantity() >= quantity) {
-                updateBasketById(basket.getId(), quantity);
-            }
+            updateBasketById(basket.getId(), basket.getQuantity() + quantity);
         }
     }
 }
