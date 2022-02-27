@@ -1,25 +1,17 @@
 package com.tencent.wxcloudrun.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.tencent.wxcloudrun.config.mybatis.typeHandler.ListStringTypeHandler;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
 @TableName("goods")
-public class Good implements Serializable {
+public class Good extends BaseEntity {
   private static final long serialVersionUID = 1L;
-  /**
-   * 活动ID
-   */
-  @TableId(type = IdType.AUTO)
-  private Integer id;
   /**
    * 商品价钱
    */
@@ -33,10 +25,13 @@ public class Good implements Serializable {
    */
   private LocalDateTime endTime;
   /**
-   * 车辆图片
+   * 商品图片
    */
   @TableField(typeHandler = ListStringTypeHandler.class)
   private List<String> goodUrls;
+
+  @TableField(typeHandler = ListStringTypeHandler.class)
+  private List<String> flowUrls;
   /**
    * 商品code
    */
@@ -46,11 +41,7 @@ public class Good implements Serializable {
    */
   private String goodDesc;
   /**
-   * 创建时间
+   * 规格描述
    */
-  private LocalDateTime createTime;
-  /**
-   * 更新时间
-   */
-  private LocalDateTime updateTime;
+  private String specs;
 }
