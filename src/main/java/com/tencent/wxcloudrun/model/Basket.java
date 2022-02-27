@@ -1,6 +1,9 @@
 package com.tencent.wxcloudrun.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.github.dreamyoung.mprelation.JoinColumn;
+import com.github.dreamyoung.mprelation.OneToOne;
 import lombok.Data;
 
 @Data
@@ -12,6 +15,11 @@ public class Basket extends BaseEntity {
      * 商品id
      */
     private Integer goodId;
+
+    @TableField(exist = false)
+    @OneToOne
+    @JoinColumn(name = "good", referencedColumnName = "good_id")
+    private Good good;
 
     /**
      * 用户ID
