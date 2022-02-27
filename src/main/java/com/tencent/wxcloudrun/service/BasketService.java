@@ -46,4 +46,22 @@ public class BasketService {
         return basketMapper.update(null, query);
 
     }
+
+    public void saveBasket(Integer goodId, Integer quantity) {
+        LambdaQueryWrapper<Basket> query = new LambdaQueryWrapper<>();
+        query.eq(Basket::getUserId, UserContext.getOpenId());
+        query.eq(Basket::getGoodId, goodId);
+        Basket basket = basketMapper.selectOne(query);
+        if (basket == null) {
+            Basket newBasket = new Basket();
+            newBasket.setGoodId(goodId);
+            newBasket.setQuantity(quantity);
+            newBasket.setUserId(UserContext.getOpenId());
+            basketMapper.insert(newBasket);
+        } else {
+            if (basket.getQuantity() >= quantity) {
+                updateBasketById(basket.getId(), quantity);
+            }
+        }
+    }
 }

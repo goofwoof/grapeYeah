@@ -3,6 +3,7 @@ package com.tencent.wxcloudrun.controller;
 import com.tencent.wxcloudrun.config.ApiResponse;
 import com.tencent.wxcloudrun.model.Basket;
 import com.tencent.wxcloudrun.service.BasketService;
+import org.hibernate.validator.constraints.Range;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,7 +38,7 @@ public class BasketController {
    *
    * @return API response json
    */
-  @GetMapping(value = "/api/Baskets")
+  @GetMapping(value = "/api/baskets")
   ApiResponse getBaskets() {
     logger.info("/api/count get request");
     List<Basket> Baskets = Basketservice.getBaskets();
@@ -44,13 +46,27 @@ public class BasketController {
   }
 
   /**
+   * 新增
+   *
+   * @return API response json
+   */
+  @PostMapping(value = "/api/baskets")
+  ApiResponse createBasket(
+      @RequestParam("good") @Validated @NotNull Integer goodId,
+      @RequestParam("quantity") @Validated @NotNull @Range(min = 1, max = 999) Integer quantity) {
+    logger.info("/api/count get request");
+    Basketservice.saveBasket(goodId, quantity);
+    return ApiResponse.ok();
+  }
+
+  /**
    * 更新
    *
    * @return API response json
    */
-  @PutMapping(value = "/api/Baskets/{id}")
+  @PutMapping(value = "/api/baskets/{id}")
   ApiResponse updateBasketById(@PathVariable() Integer id,
-      @RequestParam("quantity") @Validated @NotNull Integer quantity) {
+      @RequestParam("quantity") @Validated @NotNull @Range(min = 1, max = 999) Integer quantity) {
     logger.info("/api/count get request");
     Basketservice.updateBasketById(id, quantity);
     return ApiResponse.ok();
@@ -61,7 +77,7 @@ public class BasketController {
    *
    * @return API response json
    */
-  @DeleteMapping(value = "/api/Baskets/{id}")
+  @DeleteMapping(value = "/api/baskets/{id}")
   ApiResponse deleteBasketById(@PathVariable() Integer id) {
     logger.info("/api/count get request");
     Basketservice.deleteBasket(id);
@@ -73,7 +89,7 @@ public class BasketController {
    *
    * @return API response json
    */
-  @DeleteMapping(value = "/api/Baskets")
+  @DeleteMapping(value = "/api/baskets")
   ApiResponse deleteBaskets() {
     logger.info("/api/count get request");
     Basketservice.deleteBaskets();
