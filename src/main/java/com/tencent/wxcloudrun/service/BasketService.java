@@ -2,8 +2,10 @@ package com.tencent.wxcloudrun.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.tencent.wxcloudrun.config.ErrorCode;
 import com.tencent.wxcloudrun.config.UserContext;
 import com.tencent.wxcloudrun.dao.BasketMapper;
+import com.tencent.wxcloudrun.exception.BusinessException;
 import com.tencent.wxcloudrun.model.Basket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,6 +61,10 @@ public class BasketService {
             newBasket.setUserId(UserContext.getOpenId());
             basketMapper.insert(newBasket);
         } else {
+            int quantityResult = basket.getQuantity() + quantity;
+            if (quantityResult < 1 || quantityResult > 999) {
+                throw new BusinessException(ErrorCode.QUANTITY_OPERATE_ERROR);
+            }
             updateBasketById(basket.getId(), basket.getQuantity() + quantity);
         }
     }
