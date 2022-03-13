@@ -49,6 +49,7 @@ public class AddressService {
         }
         Address address = new Address();
         BeanUtils.copyProperties(addressRequest, address);
+        address.setPrefer(addressRequest.getPrefer());
         LambdaUpdateWrapper<Address> query = new LambdaUpdateWrapper<>();
         query.eq(Address::getUserId, UserContext.getOpenId());
         query.eq(Address::getId, id);
