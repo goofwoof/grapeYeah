@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -48,7 +49,7 @@ public class AddressController {
    * @return API response json
    */
   @PostMapping(value = "/api/addresses")
-  ApiResponse createAddress(@Validated AddressRequest addressRequest) {
+  ApiResponse createAddress(@Validated @RequestBody AddressRequest addressRequest) {
     addressService.saveAddress(addressRequest);
     return ApiResponse.ok();
   }
@@ -60,7 +61,7 @@ public class AddressController {
    */
   @PutMapping(value = "/api/addresses/{id}")
   ApiResponse updateBasketById(@PathVariable() Integer id,
-      @Validated AddressRequest addressRequest) {
+      @Validated @RequestBody AddressRequest addressRequest) {
     addressService.updateAddressById(id, addressRequest);
     return ApiResponse.ok();
   }
