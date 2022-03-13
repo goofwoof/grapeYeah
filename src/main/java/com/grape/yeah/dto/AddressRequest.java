@@ -13,7 +13,7 @@ public class AddressRequest {
      */
     @NotNull
     @NotBlank
-    @Length(max = 10)
+    @Length(max = 60)
     private String name;
     /**
      * 手机号
@@ -25,35 +25,30 @@ public class AddressRequest {
     /**
      * 省份
      */
-
+    @NotNull
+    @NotBlank
+    @Length(max = 60)
     private String province;
     /**
      * 城市
      */
-    @NotNull
-    @NotBlank
-    @Length(max = 10)
-    private String city;
+
+
+    private String city = "";
     /**
      * 区县
      */
-    @NotNull
-    @NotBlank
-    @Length(max = 10)
-    private String county;
+    private String county = "";
     /**
      * 乡镇
      */
-    @NotNull
-    @NotBlank
-    @Length(max = 10)
-    private String town;
+    private String town = "";
     /**
      * 补充信息
      */
     @NotNull
     @NotBlank
-    @Length(max = 100)
+    @Length(max = 200)
     private String detail;
     /**
      * 纬度
