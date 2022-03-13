@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 @Data
-@TableName("basket")
+@TableName("address")
 public class Address extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
